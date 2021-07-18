@@ -1,23 +1,39 @@
 import React from "react"
+import { ExchangesApi } from "../../api";
 import ExchangesPresenter from "./ExchangesPresenter"
 
 export default class extends React.Component{
     state={
-        name:null,
-        description:null,
+        exchanges:null,
         error:null,
-        loading:null
+        loading:true
+    }
+    async componentDidMount(){
+        try{
+            const{data:exchanges}= await ExchangesApi.exchanges();
+            this.setState(
+                exchanges,
+            )
+        } catch{
+                this.setState({
+                    error:"Can't Find..."
+                })                       
+        } finally{
+            this.setState({
+                loading:false
+            })
+        }
     }
 
     render(){
-        const {name,description,error,loading}=this.state;
+        const {exchanges,error,loading}=this.state;
         return(
                 <ExchangesPresenter
-                name={name}
-                description={description}
+                exchanges={exchanges}
                 error={error}
                 loading={loading}
                 />
         )
     }
 }
+

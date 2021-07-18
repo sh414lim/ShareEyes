@@ -1,20 +1,25 @@
 import React from "react";
+import { CoinsApi } from "../../api";
 import CoinsPrsenter from "./coinsPrsenter";
 
 export default class extends React.Component{
     state={
-        name:null,
-        rank:null,
+        coins:null,
         error:null,
         loading:false
     }
+    async componentDidMount(){
+        const {data:coins}=await CoinsApi.coins();
+        this.setState({
+            coins,
+        })
+    }
 
     render(){
-        const{name,rank,error,loading}=this.state
+        const{coins,error,loading}=this.state
         return(
             <CoinsPrsenter
-            name={name}
-            rank={rank}
+            coins={coins}
             error={error}
             loading={loading}
             />
