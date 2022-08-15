@@ -1,9 +1,10 @@
 import React from "react";
+import SiderTab from "./Componets/SiderTab";
 
 function App() {
   return (
     <div>
-      <h1>Coin Explorer</h1>
+      <SiderTab/>
     </div>
   );
 }
